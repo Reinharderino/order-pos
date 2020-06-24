@@ -1,0 +1,28 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "data",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "guia"
+    },
+    {
+      "name": "shipping",
+      "direction": "out",
+      "type": "cosmosDB",
+      "databaseName": "POSCON",
+      "collectionName": "moovin",
+      "createIfNotExists": false,
+      "connectionStringSetting": "cosmos-instance_DOCUMENTDB",
+      "partitionKey": "internalCode"
+    }
+  ]
+}
