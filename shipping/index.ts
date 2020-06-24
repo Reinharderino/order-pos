@@ -80,7 +80,7 @@ const httpTrigger: AzureFunction = async function (
       // status: 200, /* Defaults to 200 */
       body: orden,
     };
-    context.bindings.
+    context.bindings.shipping = orden;
     context.done;
   } else {
     context.bindings.guias = {
