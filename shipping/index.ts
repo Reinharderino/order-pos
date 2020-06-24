@@ -36,45 +36,36 @@ const httpTrigger: AzureFunction = async function (
 
     orden.to.street = datos.dropoff.location.street;
     orden.to.number = datos.dropoff.location.number;
-    orden.to.floor = datos.dropoff.location.floor??"";
-    orden.to.apartment = datos.dropoff.location.apartment??"";
+    orden.to.floor = datos.dropoff.location.floor ?? "";
+    orden.to.apartment = datos.dropoff.location.apartment ?? "";
     orden.to.city = datos.dropoff.location.city ?? "";
-    orden.to.state = datos.dropoff.location.state??"";
+    orden.to.state = datos.dropoff.location.state ?? "";
     orden.to.postalCode = datos.dropoff.location.postalCode ?? "";
-    orden.to.country = datos.dropoff.location.country??"CL";
-    orden.to.instructions = datos.dropoff.location.instructions?? "";
+    orden.to.country = datos.dropoff.location.country ?? "CL";
+    orden.to.instructions = datos.dropoff.location.instructions ?? "";
     orden.to.contact.firstName = datos.dropoff.contact.name;
-    orden.to.contact.lastName = datos.dropoff.contact.lastname??"";
+    orden.to.contact.lastName = datos.dropoff.contact.lastname ?? "";
     orden.to.contact.email = datos.dropoff.contact.email;
     orden.to.contact.phone = datos.dropoff.contact.phone;
-    orden.to.message = datos.notes??"";
+    orden.to.message = datos.notes ?? "";
 
     orden.internalCode = `${datos.client_sender}-${datos.order_number}`;
     orden.extra = {};
     orden.conf.assurance = false;
     orden.conf.items = [];
 
-    if(datos.packages.length>0){
-        
-        datos.packages.forEach(
+    if (datos.packages.length > 0) {
+      datos.packages.forEach((item) => {
+        let itemRevisado = {} as ItemElement;
+        itemRevisado.item.description = item.item.description;
+        itemRevisado.item.height = item.item.height ?? 0;
+        itemRevisado.item.weight = item.item.weight ?? 0;
+        itemRevisado.item.width = item.item.width ?? 0;
+        itemRevisado.item.quantity = item.item.quantity;
 
-            (item)=>{
-                
-                let itemRevisado = {} as ItemElement;
-                itemRevisado.item.description = item.item.description;
-                itemRevisado.item.height = item.item.height ?? 0;
-                itemRevisado.item.weight = item.item.weight ?? 0;
-                itemRevisado.item.width = item.item.width ?? 0;
-                itemRevisado.item.quantity = item.item.quantity;
-
-                orden.conf.items.push(itemRevisado)
-              
-            }
-        );
-
-
+        orden.conf.items.push(itemRevisado);
+      });
     }
-
 
     context.bindings.guias = {
       // status: 200, /* Defaults to 200 */
