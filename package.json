@@ -23,6 +23,6 @@
     "@types/es6-promise": "^3.3.0",
     "nodemon": "^2.0.4",
     "typescript": "^3.9.5",
-    "webpack": "^4.43.0"
+    "webpack": "^5.75.0"
   }
 }
